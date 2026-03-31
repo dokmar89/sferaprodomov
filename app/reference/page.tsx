@@ -22,7 +22,12 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { client } from '@/lib/sanity.client'
-import { featuredReferencesQuery, projectReferencesQuery } from '@/lib/sanity.queries'
+import {
+  featuredReferencesQuery,
+  projectReferencesQuery,
+  referenceHeroVideoQuery,
+} from '@/lib/sanity.queries'
+import { BackgroundVideo } from '@/components/ui/background-video'
 
 type FeaturedReference = {
   id: string
@@ -75,15 +80,22 @@ export default function ReferencePage() {
   const [otherReferences, setOtherReferences] = useState<ListReference[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [heroVideo, setHeroVideo] = useState<{
+    videoWebm?: string
+    videoMp4?: string
+    posterImage?: string
+    videoOpacity?: number
+  } | null>(null)
 
   // Fetch data on component mount
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
       try {
-        const [featured, other] = await Promise.all([
+        const [featured, other, heroSettings] = await Promise.all([
           client.fetch(featuredReferencesQuery),
           client.fetch(projectReferencesQuery),
+          client.fetch(referenceHeroVideoQuery),
         ])
 
         // Map data to match expected types
@@ -131,6 +143,9 @@ export default function ReferencePage() {
 
         setFeaturedReferences(mappedFeatured)
         setOtherReferences(mappedOther)
+        if (heroSettings) {
+          setHeroVideo(heroSettings)
+        }
       } catch (error) {
         console.error('Error fetching references:', error)
       } finally {
@@ -200,14 +215,23 @@ export default function ReferencePage() {
     <div className="flex flex-col">
       {/* Hero Section - konzistentní s hlavní stránkou */}
       <section className="relative h-[70vh] md:h-[90vh] min-h-[700px] md:min-h-[600px] flex items-center bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-600">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero_reference.png"
-            alt="Naše reference"
-            fill
-            className="object-cover opacity-20"
+        {heroVideo?.videoWebm || heroVideo?.videoMp4 ? (
+          <BackgroundVideo
+            videoWebm={heroVideo.videoWebm}
+            videoMp4={heroVideo.videoMp4}
+            posterImage={heroVideo.posterImage || '/images/hero_reference.png'}
+            opacity={heroVideo.videoOpacity}
           />
-        </div>
+        ) : (
+          <div className="absolute inset-0">
+            <Image
+              src="/images/hero_reference.png"
+              alt="Naše reference"
+              fill
+              className="object-cover opacity-20"
+            />
+          </div>
+        )}
         <div className="relative z-10 container px-4 md:px-6">
           <div className="grid lg:grid-cols-12 gap-4 md:gap-8 items-center">
             {/* Left side - Content */}

@@ -36,8 +36,33 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title('Categories')
         .child(S.documentList().title('Categories').filter('_type == "category"')),
-      // Regular document types
+      // References
+      S.listItem()
+        .title('Projektová reference')
+        .child(
+          S.list()
+            .title('Projektová reference')
+            .items([
+              S.listItem()
+                .title('Všechny reference')
+                .child(
+                  S.documentList().title('Všechny reference').filter('_type == "projectReference"'),
+                ),
+              S.listItem()
+                .title('Nastavení stránky')
+                .child(
+                  S.editor()
+                    .id('referencePageSettings')
+                    .schemaType('referencePageSettings')
+                    .documentId('referencePageSettings'),
+                ),
+            ]),
+        ),
+      // Regular document types (excluding manually defined ones)
       ...S.documentTypeListItems().filter(
-        (listItem) => !['post', 'author', 'category'].includes(listItem.getId() as string),
+        (listItem) =>
+          !['post', 'author', 'category', 'projectReference', 'referencePageSettings'].includes(
+            listItem.getId() as string,
+          ),
       ),
     ])

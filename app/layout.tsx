@@ -2,13 +2,8 @@ import type React from 'react'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Header } from '@/components/layout/header'
-import { TopBar } from '@/components/ui/top-bar'
-import { Footer } from '@/components/layout/footer'
 import { ThemeProvider } from '@/components/theme-provider'
-import { Toaster } from '@/components/ui/toaster'
-import { WelcomePopupProvider } from '@/components/welcome-popup-provider'
-import { CookieConsent } from '@/components/ui/cookie-consent'
+import { SiteLayout } from '@/components/layout/site-layout'
 import { GoogleAnalytics } from '@/components/ui/google-analytics'
 import { FacebookPixel } from '@/components/ui/facebook-pixel'
 import { GoogleTagManager } from '@/components/ui/google-tag-manager'
@@ -45,14 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SpeedInsights />
         <UtmCapture />
         <ThemeProvider theme="default">
-          <WelcomePopupProvider>
-            <TopBar />
-            <Header />
-            <main className="min-h-screen">{children}</main>
-            <Footer />
-            <Toaster />
-            <CookieConsent />
-          </WelcomePopupProvider>
+          <SiteLayout>{children}</SiteLayout>
         </ThemeProvider>
       </body>
     </html>

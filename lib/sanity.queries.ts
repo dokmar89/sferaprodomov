@@ -200,6 +200,16 @@ export const bestSellingProductsQuery = groq`
   }
 `
 
+// Reference page hero video
+export const referenceHeroVideoQuery = groq`
+  *[_type == "referencePageSettings"][0] {
+    "videoWebm": videoWebm.asset->url,
+    "videoMp4": videoMp4.asset->url,
+    "posterImage": posterImage.asset->url,
+    videoOpacity
+  }
+`
+
 // Správný způsob pro získání URL souboru v Sanity
 export const productsByCategoryWithFilesQuery = groq`
   *[_type == "product" && category->slug.current == $category] {

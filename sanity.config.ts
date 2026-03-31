@@ -23,6 +23,10 @@ export default defineConfig({
   apiVersion,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema,
+  document: {
+    newDocumentOptions: (prev) =>
+      prev.filter((item) => item.templateId !== 'referencePageSettings'),
+  },
   plugins: [
     structureTool({ structure }),
     // Vision is for querying with GROQ from inside the Studio
