@@ -1,50 +1,50 @@
-# Sféra pro domov — services website
+# Sféra pro domov — web služeb
 
-A Czech services website presenting home climate and energy solutions. It combines service pages, project references, editorial content and enquiry interfaces with a Sanity content integration.
+Český web představující řešení pro domácí klima a energetiku. Spojuje stránky služeb, reference, redakční obsah a poptávkové formuláře s integrací systému Sanity.
 
-**Status:** Portfolio website source; deployment, analytics and enquiry delivery have not been revalidated in this review.
+**Stav:** Zdrojový kód webu do portfolia; nasazení, analytika a doručování poptávek nebyly při této úpravě znovu ověřeny.
 
-## Scope
+## Co projekt obsahuje
 
-- Dedicated pages for air conditioning, heat pumps, ventilation, photovoltaics and electrical installation.
-- Blog and reference routes, including detail pages.
-- Sanity client and embedded Studio route for content management.
-- Reusable service/product presentation, contact forms, cookie-consent and analytics components.
+- Stránky klimatizací, tepelných čerpadel, rekuperace, fotovoltaiky a elektroinstalací.
+- Blog a reference včetně detailních stránek.
+- Klient Sanity a vložené Studio pro správu obsahu.
+- Sdílené prvky prezentace produktů a služeb, formuláře, souhlas s cookies a analytické komponenty.
 
-## Technology
+## Technologie
 
 Next.js, React, TypeScript, Tailwind CSS, Sanity.
 
-## Architecture and source map
+## Architektura a struktura
 
-- `app/` — service, blog, reference and Studio routes
-- `components/` — layout, enquiry forms and reusable UI
-- `app/lib/sanity.client.ts` — Sanity client configuration
-- `SANITY_SETUP.md` — existing CMS setup notes
+- `app/` — stránky služeb, blogu, referencí a Studia
+- `components/` — rozvržení, formuláře a sdílené prvky
+- `app/lib/sanity.client.ts` — konfigurace klienta Sanity
+- `SANITY_SETUP.md` — stávající poznámky k nastavení CMS
 
-## Local development
+## Lokální vývoj
 
-Requires Node.js and npm. From the repository root:
+Potřebujete Node.js a npm. V kořenové složce repozitáře spusťte:
 
 ```sh
 npm install
 npm run dev
 ```
 
-Build command declared by this checkout: `npm run build`.
+Příkaz pro sestavení uvedený v projektu: `npm run build`.
 
-These are the repository scripts, not a claim of a passing build. Dependency installation, build and live integrations were not executed during the documentation review.
+Jde o příkazy deklarované v repozitáři, nikoli o potvrzení úspěšného sestavení. Instalace závislostí, sestavení ani napojení na živé služby nebyly při úpravě dokumentace spuštěny.
 
-## Configuration and limitations
+## Konfigurace a omezení
 
-The Sanity client reads `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET` and `SANITY_API_TOKEN`. Supply configuration through local/hosting settings and keep private tokens server-side. Review `SANITY_SETUP.md` and the analytics-specific documentation before enabling integrations. Contact-form components exist, but delivery needs a separately verified destination.
+Klient Sanity čte `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET` a `SANITY_API_TOKEN`. Konfiguraci nastavte lokálně nebo v hostingu; soukromé tokeny ponechte na serveru. Před aktivací integrací projděte `SANITY_SETUP.md` a dokumentaci analytiky. Formulářové komponenty jsou přítomné, ale doručovací cíl vyžaduje samostatné ověření.
 
-Generated `dist/` and `.sanity/runtime/` content is present. Treat the source directories as the implementation reference; generated assets have not been cleaned in this documentation change.
+Repozitář obsahuje také generované soubory `dist/` a `.sanity/runtime/`. Za hlavní podklad implementace považujte zdrojové složky; v rámci této dokumentační úpravy nebyly generované soubory odstraňovány.
 
-## Portfolio relevance
+## Přínos pro portfolio
 
-Demonstrates maintainable page composition, CMS integration and the practical configuration work involved in operating a business website.
+Ukazuje skládání udržovatelných stránek, integraci CMS a konfiguraci potřebnou k provozu firemního webu.
 
-## Documentation next steps
+## Co doplnit do dokumentace
 
-Capture screenshots using synthetic data, document a reproducible test run, and record which integrations have been verified. Keep credentials and deployment-specific configuration outside version control.
+Snímky obrazovky s fiktivními daty, opakovatelný postup ověření a přehled skutečně otestovaných integrací. Přihlašovací údaje a konfigurace konkrétního nasazení patří mimo Git.
